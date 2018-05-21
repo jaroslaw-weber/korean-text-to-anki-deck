@@ -8,3 +8,6 @@ Install konpy
 
 Run script with:
 python create_word_list
+
+# Todo
+- add option to ignore some words (define inside ignore.txt file)
