@@ -39,31 +39,42 @@ print("loading frequency list")
 words_with_frequency = {}
 words_without_frequency = []
 
+row_index = 0
+
 with open(word_frequency_file_path, 'r') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
     for row in spamreader:
+        if (row_index > 200):
+            print(
+                "you can only translate 200 words at once. translating first 200 words"
+            )
+            break
         word_now = row[0]
         words_with_frequency[word_now] = int(row[1])
         words_without_frequency.append(word_now)
+        row_index += 1
 
 print(words_with_frequency)
 
 print("translating")
-#translate and create csv file content
-csv_file = "korean" + separator + "english" + separator + "japanese" + separator + "frequency" + newline
+
 translations = translator.translate(words_without_frequency, dest='en')
 translations_japanese = translator.translate(
     words_without_frequency, dest='ja')
-for index, translation in enumerate(translations):
-    word_now = translation.origin
-    frequency_now = words_with_frequency[word_now]
-    japanese = translations_japanese[index].text
-    csv_file += word_now + separator + translation.text + separator + japanese + separator + str(
-        frequency_now) + newline
 
-print("saving to " + output_file_path)
-#save translations as csv file
-with open(output_file_path, 'w') as file:
-    file.write(csv_file)  #.encode("utf-8"))
+print("creating csv file") 
+
+with open(output_file_path, 'w') as csvfile:
+    writer = csv.writer(
+        csvfile, delimiter=separator, quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    first_row = ["korean", "english", "japanese", "frequency"]
+    writer.writerow(first_row)
+
+    for index, translation in enumerate(translations):
+        word_now = translation.origin
+        frequency_now = words_with_frequency[word_now]
+        japanese = translations_japanese[index].text
+        row = [word_now, translation.text, japanese, str(frequency_now)]
+        writer.writerow(row)
 
 print("created csv file! you can edit it and import it to anki")

@@ -16,7 +16,7 @@ debug_mode = False
 
 #filtering words that are not frequent. for example, setting this to 1 would filter all words that appeared less than once.
 #for short texts set to 1, for very long texts set to higher value (10 or more)
-filter_below_frequency = 10
+filter_below_frequency = 7
 
 import collections
 import csv
@@ -37,8 +37,8 @@ if debug_mode:
     print("filtering words")
 filtered_words = []
 for word, word_type in all_words:
-    #filter only verbs and nouns
-    if (word_type == "Noun" or word_type == "Verb"):
+    #filter only important words
+    if (word_type == "Noun" or word_type == "Verb" or word_type == "Adjectives"):
         #print(word)
         filtered_words.append(word)
 
