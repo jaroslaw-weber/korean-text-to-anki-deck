@@ -39,7 +39,11 @@ Try search it with google:
 
 # What is the quality of the translation?
 
-Not bad! Still, you should probably check the meaning if something seems fishy!
+There are lot of errors in translation (especially in Japanese), so better fix the translation with [Naver Dictionary](http://endic.naver.com/?sLn=en)!
+
+Useful Anki plugins:
+- [Hanseido](https://ankiweb.net/shared/info/367700876)
+- [Japanese Definitions for Korean Vocabulary](https://ankiweb.net/shared/info/553926167)
 
 # Installation
 
@@ -66,3 +70,9 @@ python create_frequency_list.py
 ```
 python translate_frequency_list.py 
 ```
+
+# FAQ
+
+> How the tool is handling verbs? Verbs are often conjugated
+
+The tool is detecting that verb is conjugated and transforms it to "base form".
